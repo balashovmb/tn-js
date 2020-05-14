@@ -4,12 +4,12 @@ let arithmeticMean = 0;
 let sum = 0;
 do {
     currentInput = prompt('Введите число');
-    if (!isNaN(currentInput) && Boolean(currentInput)) {
+    if (!isNaN(currentInput) && currentInput !== '') {
         numberInputs++;
         sum += parseFloat(currentInput);
         arithmeticMean = sum / numberInputs;
     }
-} while ( currentInput );
+} while (currentInput);
 
 alert (
     `Количество чисел: ${numberInputs}, ` +
