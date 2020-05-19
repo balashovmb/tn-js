@@ -192,44 +192,38 @@ function flightDetails(flightName) {
  * @returns {Report} отчет
  */
 function flightReport(flight, nowTime){
-    let Report = {};
+    let report = {};
 
     let flightObject = flights[flight];
 
     if (!flightObject) { throw new Error('Flight is not exists') };
 
-    Report.flight = flight;
+    report.flight = flight;
 
     if ((nowTime >= flightObject.registrationStarts) &&
     (nowTime < flightObject.registartionEnds)) {
-        Report.registration = true;
+        report.registration = true;
     } else {
-        Report.registration = false;
+        report.registration = false;
     }
 
     if (nowTime > flightObject.registartionEnds) { 
-        Report.complete = true;
+        report.complete = true;
     } else {
-        Report.complete = false;
+        report.complete = false;
     };
 
-    Report.countOfSeats = flightObject.seats;
+    report.countOfSeats = flightObject.seats;
 
     let tickets = flightObject.tickets;
 
-    Report.reservedSeats = tickets.length;
+    report.reservedSeats = tickets.length;
 
-    let registeredSeats = 0;
+    report.registeredSeats = tickets.filter( 
+        ticket => (ticket.registrationTime) 
+    ).length;
 
-    tickets.forEach( ticket => {
-        if (ticket.registrationTime) {
-            registeredSeats++;
-        };
-    });
-
-    Report.registeredSeats = registeredSeats;
-
-    return Report;
+    return report;
 }
 
 let report = flightReport('BH118', makeTime(10,0));
