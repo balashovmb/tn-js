@@ -18,12 +18,9 @@ indicesSentencesWithC.forEach(indexOfSentence => {
     const sentence = sentencesArray[indexOfSentence];
     let indexOfWordA = sentence.indexOf(wordA);
     if (indexOfWordA > -1) {
-        const newSentence = [
-            sentence.slice(0, indexOfWordA),
-            wordB,
-            sentence.slice(indexOfWordA + wordA.length)
-        ].join('');
+        const newSentence = sentence.replace(wordA, wordB);
         sentencesArray[indexOfSentence] = newSentence;
     }
 })
+
 console.log(sentencesArray.join('.'));

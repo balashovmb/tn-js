@@ -2,7 +2,7 @@ function convertTime(timeString){
     let [hours, minutes, dayPhase] = parseInput();
 
     if (!(validateInput())) {
-        return ('Не верный ввод');
+        return 'Не верный ввод';
     };
     
     changeFormat();
@@ -23,11 +23,15 @@ function convertTime(timeString){
     }
 
     function changeFormat() {
-        if (dayPhase == 'pm') {
-            hours += 12;
+        if (hours == '12') {
+            if (dayPhase == 'am') {
+                return hours = 0;
+            } else {
+                return hours = 12;
+            }
         };
-        if (hours == '24') {
-            hours = 0;
+        if (dayPhase == 'pm') {
+            return hours += 12;
         };
     }
 
@@ -42,6 +46,9 @@ function convertTime(timeString){
 
 console.log(convertTime('1*1 am'));
 console.log(convertTime('7-11 pm'));
+console.log(convertTime('12 00 am'));
+console.log(convertTime('12 00 pm'));
 console.log(convertTime('25 1 am'));
 console.log(convertTime('7-65 am'));
 console.log(convertTime('1-1'));
+console.log(convertTime('7-11 xm'));
