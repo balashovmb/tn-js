@@ -19,7 +19,7 @@ describe('wordStat', () => {
     });
     it('*Empty string*', () => {
         const result = wordStat('');
-        const value = [{ word: '', sum: 0 }];
+        const value = [];
         assert.deepEqual(result, value);
     });
     it('a', () => {
