@@ -5,9 +5,9 @@ function encodeText(text) {
     textArray.forEach(word => {
         encodedText.push(dictionaryObj[word]['code']);
     });
-    return { 
+    return {
         dictionary: Object.values(dictionaryObj),
-        encodedText: encodedText.toString() 
+        encodedText: encodedText.toString()
     };
 
     function createDictionaryObj(textArray) {

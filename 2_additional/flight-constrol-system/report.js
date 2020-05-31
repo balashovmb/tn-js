@@ -40,7 +40,7 @@ function flightReport(flight, nowTime) {
         ticket => (ticket.reverted)
     ).length;
 
-    report.percentOfReverts = 100 / report.reservedSeats * report.countOfReverts;
+    report.percentOfReverts = report.countOfReverts / report.reservedSeats * 100;
 
     return report;
 }
