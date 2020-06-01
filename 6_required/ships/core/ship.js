@@ -1,13 +1,46 @@
 'use strict';
 
-function Ship(name) {
+/**
+* @param {string} name Имя корабля
+* @param {string} model Модель корабля
+* @param {{х: number, y: number}} position Координаты коробля
+* @returns {Ship} Корабль
+ */
+function Ship(name, model, position, ships = world.ships) {
     let _isAnchorDroped = false;
-    this.name = name;
-    this.position = { x: 0, y: 0 };
+    let _name = validateName(name);
+
+    this.model = model;
+    this.position = position;
+    this.distance = 0;
     this.speed = 0;
+
+
+    this.name = function () {
+        console.log(_name);
+    }
+
+    function validateName(name) {
+        if (Object.keys(ships).includes(name))
+            throw new Error(`Ship with name '${name}' already exists`);
+        return name;
+    }
+
+    this.move(direction) = function {
+        switch (direction) {
+            case 'n':
+
+
+        }
+    }
+
     this.moveTo = function (position) {
         if (_isAnchorDroped)
             throw new Error('You need to rise anchor');
+
+        this.distance += Math.sqrt(
+            (this.position.x - position.x) ** 2 + (this.position.y - position.y) ** 2
+        );
 
         this.position = {
             x: position.x,
@@ -29,4 +62,6 @@ function Ship(name) {
 
         _isAnchorDroped = true;
     };
+
+    ships[name] = this;
 }
