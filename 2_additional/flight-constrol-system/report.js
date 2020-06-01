@@ -29,7 +29,7 @@ function flightReport(flight, nowTime) {
     report.countOfSeats = flightObject.seats;
 
     let tickets = flightObject.tickets;
-
+    
     report.reservedSeats = tickets.length;
 
     report.registeredSeats = tickets.filter(
@@ -39,6 +39,8 @@ function flightReport(flight, nowTime) {
     report.countOfReverts = tickets.filter(
         ticket => (ticket.reverted)
     ).length;
+
+    report.countOfReservations = report.reservedSeats - report.countOfReverts;
 
     report.percentOfReverts = report.countOfReverts / report.reservedSeats * 100;
 
