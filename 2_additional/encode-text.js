@@ -1,10 +1,7 @@
 function encodeText(text) {
     const textArray = text.split(' ');
     const dictionaryObj = createDictionaryObj(textArray)
-    let encodedText = [];
-    textArray.forEach(word => {
-        encodedText.push(dictionaryObj[word]['code']);
-    });
+    let encodedText = textArray.map((word) => (dictionaryObj[word]['code']));
     return {
         dictionary: Object.values(dictionaryObj),
         encodedText: encodedText.toString()
