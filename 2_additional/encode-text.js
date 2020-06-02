@@ -6,26 +6,24 @@ function encodeText(text) {
         dictionary: Object.values(dictionaryObj),
         encodedText: encodedText.toString()
     };
-
-    function createDictionaryObj(textArray) {
-        let existedWords = [];
-        let usedCodes = [];
-        return textArray.reduce((acc, word) => {
-            if (!existedWords.includes(word)) {
-                existedWords.push(word);
-                let code;
-                do {
-                    code = Math.random().toString(36).substr(2)
-                } while (usedCodes.includes(code));
-                usedCodes.push(code);
-                acc[word] = { word, count: 1, code };
-            }
-            else {
-                acc[word]['count']++;
-            }
+}
+function createDictionaryObj(textArray) {
+    let existedWords = [];
+    let usedCodes = [];
+    return textArray.reduce((acc, word) => {
+        if (existedWords.includes(word)) {
+            acc[word].count++;
             return acc;
-        }, {});
-    }
+        }
+        existedWords.push(word);
+        let code;
+        do {
+            code = Math.random().toString(36).substr(2);
+        } while (usedCodes.includes(code));
+        usedCodes.push(code);
+        acc[word] = { word, count: 1, code };
+        return acc;
+    }, {});
 }
 
 text = 'Lorem ipsum ipsum dolor.'

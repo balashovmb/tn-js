@@ -14,7 +14,7 @@ function revertTicket(ticketId, nowTime) {
     let ticket;
     
     for (let flight in flights) {
-        flights[flight]['tickets'].filter(currentTicket => {
+        flights[flight].tickets.filter(currentTicket => {
             if (currentTicket.id == ticketId) { ticket = currentTicket };
         })
     }
