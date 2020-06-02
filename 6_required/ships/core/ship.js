@@ -17,6 +17,7 @@ function Ship(name, model, position, ships = world.ships) {
 
     this.name = function () {
         console.log(_name);
+        return _name;
     }
 
     this.move = function (direction) {
@@ -51,6 +52,7 @@ function Ship(name, model, position, ships = world.ships) {
             x: position.x,
             y: position.y,
         }
+        return true;
     };
 
     this.checkAnchor = function () {
@@ -67,9 +69,7 @@ function Ship(name, model, position, ships = world.ships) {
      * @param {boolean} droped
      */
     this.dropAnchor = () => {
-        if (this.speed !== 0)
-            throw new Error('Speed must be 0');
-
+        console.log(_isAnchorDroped);
         _isAnchorDroped = true;
     };
 
