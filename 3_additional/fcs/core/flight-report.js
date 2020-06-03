@@ -14,6 +14,14 @@
  * @returns {Report} отчет
  */
 function flightReport(flights, flightNumber, nowTime) {
+    if (typeof(flightNumber) != 'string') {
+        throw new TypeError('Flight number is not a string.');
+    }
+
+    if (typeof(nowTime) != 'number') {
+        throw new TypeError('Time is not a number.');
+    }
+
     const flight = flights[flightNumber];
 
     if (!flight)
