@@ -39,5 +39,7 @@ let res = buyTicket(world.flights, 'BH118', makeTime(5, 10), 'Petrov I. I.');
 
 let res2 = buyTicket(world.flights, 'BH118', makeTime(5, 10), 'Ivanov I. I.');
 
+console.log(flightReport(world.flights,'BH118', Date))
 
+console.log(res)
 updateView();
