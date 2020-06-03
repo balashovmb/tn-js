@@ -1,7 +1,6 @@
 describe('revertTicket', () => {
     const time = new Date().setHours(12, 0, 0);
     const timeTooLate = new Date().setHours(12, 0, 1);
-    console.log(new Date(timeTooLate));
     const ticket = {
         id: 'BH118-B50',
         flight: 'BH118',
