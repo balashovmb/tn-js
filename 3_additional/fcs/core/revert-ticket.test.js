@@ -19,6 +19,15 @@ describe('revertTicket', () => {
         buyTime: time,
         registrationTime: null,
     }
+    const ticket3 = {
+        id: 'BH118-B52',
+        flight: 'BH118',
+        fullName: 'Petrov I. I.',
+        type: 0,
+        seat: 20,
+        buyTime: time,
+        registrationTime: null,
+    }
     const testWorld = {
         flights: {
             BH118: {
@@ -29,18 +38,30 @@ describe('revertTicket', () => {
                 registrationEnds: new Date().setHours(15, 0, 0),
                 tickets: [
                     ticket,
-                    ticket2
+                    ticket2,
+                    ticket3
                 ],
             }
         }
     };
     describe('valid args', () => {
-        const result = revertTicket('BH118-B50', time, testWorld.flights);
-        it('returns true', () => {
-            assert.equal(result, true);
+        describe('first', () => {
+            const result = revertTicket('BH118-B50', time, testWorld.flights);
+            it('returns true', () => {
+                assert.equal(result, true);
+            });
+            it('adds "reverted" property to ticket', () => {
+                assert.equal(ticket.reverted, true);
+            });
         });
-        it('adds "reverted" property to ticket', () => {
-            assert.equal(ticket.reverted, true);
+        describe('second', () => {
+            const result = revertTicket('BH118-B52', time, testWorld.flights);
+            it('returns true', () => {
+                assert.equal(result, true);
+            });
+            it('adds "reverted" property to ticket', () => {
+                assert.equal(ticket3.reverted, true);
+            });
         });
     });
     describe('throws error when', () => {

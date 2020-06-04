@@ -1,5 +1,6 @@
 describe('flightReport', () => {
     const time = new Date().setHours(10, 0, 0);
+    const time2 = new Date().setHours(5, 0, 0);
     const testWorld = {
         flights: {
             BH118: {
@@ -28,24 +29,51 @@ describe('flightReport', () => {
                         registrationTime: null,
                     }
                 ],
+            },
+            BH119: {
+                name: 'BH119',
+                seats: 32,
+                businessSeats: 5,
+                registrationStarts: time2,
+                registrationEnds: time,
+                tickets: [
+                ],
             }
         }
     };
-    it('creates report when args is valid', () => {
-        const result = flightReport(testWorld.flights, 'BH118', time);
-        console.log(result)
-        assert.deepEqual(result, {
-            flight: 'BH118',
-            registration: true,
-            complete: false,
-            countOfSeats: 28,
-            reservedSeats: 2,
-            registeredSeats: 1,
-            countOfReverts: 0,
-            countOfReservations: 2,
-            percentOfReverts: 0
+    describe('valid args', ()=>{
+        it('BH118', () => {
+            const result = flightReport(testWorld.flights, 'BH118', time);
+            console.log(result)
+            assert.deepEqual(result, {
+                flight: 'BH118',
+                registration: true,
+                complete: false,
+                countOfSeats: 28,
+                reservedSeats: 2,
+                registeredSeats: 1,
+                countOfReverts: 0,
+                countOfReservations: 2,
+                percentOfReverts: 0
+            });
+        });
+        it('BH119', () => {
+            const result = flightReport(testWorld.flights, 'BH119', time);
+            console.log(result)
+            assert.deepEqual(result, {
+                flight: 'BH119',
+                registration: true,
+                complete: false,
+                countOfSeats: 32,
+                reservedSeats: 0,
+                registeredSeats: 0,
+                countOfReverts: 0,
+                countOfReservations: 0,
+                percentOfReverts: 0
+            });
         });
     });
+
     it('throws error when flight is not found by id', () => {
         const result = () => { flightReport(testWorld.flights, 'nope', time) };
         assert.throw(result, Error, 'Flight not found');
