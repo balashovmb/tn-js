@@ -11,4 +11,19 @@ describe('parseTemplate', () => {
         )
         expect(testElement.innerText).not.to.equal(innerText);
     });
+
+    it('throws error when first arg is not html element', () => {
+        const result = () => parseTemplate(
+            '123',
+            {
+                title: 'Hello world',
+                description: 'The first program',
+            }
+        )
+        expect(result).to.throw(TypeError, 'First arg is not an HTTPElement');
+    });
+
 })
+
+
+// () => sut.run()).to.throw()
