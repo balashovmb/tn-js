@@ -1,6 +1,6 @@
 describe('revertTicket', () => {
     const time = new Date().setHours(12, 0, 0);
-    const timeTooLate = new Date().setHours(12, 0, 1);
+    const tooLate = new Date().setHours(12, 0, 1);
     const ticket = {
         id: 'BH118-B50',
         flight: 'BH118',
@@ -49,16 +49,16 @@ describe('revertTicket', () => {
             assert.throw(result, Error, 'You cannot revert business class ticket');
         });
         it('user tries to revert ticket later than 3 hours before departure', () => {
-            const result = () => { revertTicket('BH118-B50', timeTooLate, testWorld.flights) };
+            const result = () => { revertTicket('BH118-B50', tooLate, testWorld.flights) };
             assert.throw(result, Error, 'The ticket can be returned no later than 3 hours before departure');
         });
         it('ticket id is not a string', () => {
             const result = () => { revertTicket(123, time, testWorld.flights) };
-            assert.throw(result, Error, 'Ticket id is not a string.');
+            assert.throw(result, TypeError, 'Ticket id is not a string.');
         });
         it('time arg is not a number', () => {
             const result = () => { revertTicket('BH118-B51', '12:30', testWorld.flights) };
-            assert.throw(result, Error, 'Time is not a number.');
+            assert.throw(result, TypeError, 'Time is not a number.');
         });
     });
 })

@@ -29,7 +29,7 @@ function revertTicket(ticketId, nowTime, flights = world.flights) {
 
     const flight = flights[ticket.flight];
     if (!ticket) { throw new Error('Incorrect ticket number') };
-    
+
     if (nowTime > flight.registrationEnds - 10800000) {
         throw new Error(
             'The ticket can be returned no later than 3 hours before departure'

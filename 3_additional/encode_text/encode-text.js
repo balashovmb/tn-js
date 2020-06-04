@@ -1,4 +1,5 @@
 function encodeText(text) {
+    if (text.length == 0) { return {} };
     const textArray = text.split(' ');
     const dictionaryObj = createDictionaryObj(textArray)
     let encodedText = textArray.map((word) => (dictionaryObj[word]['code']));
@@ -25,6 +26,3 @@ function createDictionaryObj(textArray) {
         return acc;
     }, {});
 }
-
-text = 'Lorem ipsum ipsum dolor.'
-console.log(encodeText(text));
