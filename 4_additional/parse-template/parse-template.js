@@ -9,10 +9,3 @@ function parseTemplate(element, attrs) {
     });
 }
 
-parseTemplate(
-    document.getElementById('item1'),
-    {
-        title: 'Hello world',
-        description: 'The first program',
-    }
-)
