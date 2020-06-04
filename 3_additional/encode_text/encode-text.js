@@ -25,6 +25,3 @@ function createDictionaryObj(textArray) {
         return acc;
     }, {});
 }
-
-text = 'Lorem ipsum ipsum dolor.'
-console.log(encodeText(text));

@@ -14,6 +14,14 @@
  * @returns {Report} отчет
  */
 function flightReport(flights, flightNumber, nowTime) {
+    if (typeof(flightNumber) != 'string') {
+        throw new TypeError('Flight number is not a string.');
+    }
+
+    if (typeof(nowTime) != 'number') {
+        throw new TypeError('Time is not a number.');
+    }
+
     const flight = flights[flightNumber];
 
     if (!flight)
@@ -26,7 +34,7 @@ function flightReport(flights, flightNumber, nowTime) {
     const registeredSeats = flight.tickets.filter(t => t.registrationTime !== null).length;
     const countOfReverts = flight.tickets.filter(ticket => (ticket.reverted)).length;
     const countOfReservations = reservedSeats - countOfReverts;
-    const percentOfReverts = countOfReverts / reservedSeats * 100;
+    const percentOfReverts = countOfReverts / reservedSeats * 100 || 0;
 
     return {
         flight: flightNumber,
