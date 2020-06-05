@@ -1,14 +1,20 @@
 describe('parseTemplate', () => {
+    const testElementRoot = document.getElementById('test-root');
+
     const propObject = {
         title: 'Hello world',
         description: 'The first program',
     };
+
     beforeEach(() => {
-        const testElementRoot = document.getElementById('test-root');
         testElementRoot.innerHTML = `<div id="item1">
             <h3 id="test-title" data-field="title">Some title</h3>
             <p id="test-decsription" data-field="description"></p>
         </div>`
+    });
+
+    after(() => {
+        testElementRoot.innerHTML = '';
     });
 
     it('changes inner text of the element', () => {

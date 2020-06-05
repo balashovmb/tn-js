@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Parse template test</title>
+    <title>Flight details test</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.css">
     <!-- добавляем фреймворк тестирования mocha -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/3.2.0/mocha.js"></script>
@@ -18,13 +18,16 @@
 </head>
 
 <body>
-    <div id='test-root'></div>
-    <script src="parse-template.js"></script>
-    <script src="parse-template.test.js"></script>
     <!-- элемент с id="mocha" будет содержать результаты тестов -->
     <div id="mocha"></div>
 
+    <div id="flight-details"></div>
+
+    <script src="flightDetails.js"></script>
+    <script src="flightDetails.test.js"></script>
+
     <!-- запускаем тесты! -->
+
     <script>
         mocha.run();
     </script>
