@@ -7,7 +7,7 @@
 * @returns {Ship} Корабль
  */
 function Ship(name, model, position, ships = world.ships) {
-    let _isAnchorDroped = false;
+    let _isAnchorDropped = false;
     let _name = validName(name);
 
     this.model = model;
@@ -55,25 +55,25 @@ function Ship(name, model, position, ships = world.ships) {
     };
 
     this.checkAnchor = function () {
-        if (this.isAnchorDroped())
+        if (this.isAnchorDropped())
             throw new Error('You need to rise anchor');
     }
 
-    this.isAnchorDroped = function () {
-        console.log('isAnchorDroped', this);
-        return _isAnchorDroped;
+    this.isAnchorDropped = function () {
+        console.log('isAnchorDropped', this);
+        return _isAnchorDropped;
     };
 
     /**
-     * @param {boolean} droped
+     * @param {boolean} dropped
      */
     this.dropAnchor = () => {
-        console.log(_isAnchorDroped);
-        _isAnchorDroped = true;
+        console.log(_isAnchorDropped;
+        _isAnchorDropped = true;
     };
 
     this.riseAnchor = () => {
-        _isAnchorDroped = false;
+        _isAnchorDropped = false;
         return true;
     };
 
