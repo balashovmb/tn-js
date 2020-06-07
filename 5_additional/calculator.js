@@ -12,6 +12,7 @@ function calculator() {
         const secondOperandValue = parseFloat(secondOperand.value) || 0;
         const operation = operationDiv.innerText;
         secondOperand.value = '0';
+        operationDiv.innerHTML = '<br>';
         switch (operation) {
             case '+':
                 firstOperand.value = firstOperandValue + secondOperandValue;
@@ -26,7 +27,6 @@ function calculator() {
                 firstOperand.value = firstOperandValue / secondOperandValue;
                 break;
         }
-        operationDiv.innerHTML = '<br>';
     }
 
 
@@ -41,6 +41,7 @@ function calculator() {
     function cancel() {
         firstOperand.value = '';
         secondOperand.value = 0;
+        operationDiv.innerHTML = '<br>';
     }
 
     function inputDigit(event) {
@@ -51,6 +52,19 @@ function calculator() {
             secondOperand.value += digit;
         }
     }
+
+    document.addEventListener('keydown', function (event) {
+        console.log(event.code);
+        if (event.code == 'NumpadEnter') {
+            calculate();
+        }
+        if (event.code == 'Escape') {
+            cancel();
+        }
+        // if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
+        //   alert('Отменить!')
+        // }
+    });
 
     Array.from(operationButtons).forEach(function (element) {
         element.addEventListener('click', setOperation);
