@@ -1,57 +1,71 @@
-const firstOperand = document.getElementById('first-operand');
-const secondOperand = document.getElementById('second-operand');
+const firstOperandEl = document.getElementById('first-operand');
+const secondOperandEl = document.getElementById('second-operand');
 const calculateButton = document.getElementById('calculate-button');
 const operationButtons = document.getElementsByClassName('operation-button');
 const operationDiv = document.getElementById('operation');
 const cancelButton = document.getElementById('cancel-button');
 const digitButtons = document.getElementsByClassName('digit-button');
 const operations = ['+', '-', '*', '/']
+let firstOperand = '';
+let secondOperand = '';
+let operation;
 
 function calculate() {
-    const operation = operationDiv.innerText;
-    if (!operations.includes(operation)) { return };
-    const firstOperandValue = parseFloat(firstOperand.value);
-    const secondOperandValue = parseFloat(secondOperand.value) || 0;
-    secondOperand.value = '0';
-    operationDiv.innerHTML = '<br>';
+    const firstOperandValue = parseFloat(firstOperand);
+    const secondOperandValue = parseFloat(secondOperand) || 0;
+    if (!operation) { return };
     switch (operation) {
         case '+':
-            firstOperand.value = firstOperandValue + secondOperandValue;
+            firstOperand = firstOperandValue + secondOperandValue;
             break;
         case '-':
-            firstOperand.value = firstOperandValue - secondOperandValue;
+            firstOperand = firstOperandValue - secondOperandValue;
             break;
         case '*':
-            firstOperand.value = firstOperandValue * secondOperandValue;
+            firstOperand = firstOperandValue * secondOperandValue;
             break;
         case '/':
-            firstOperand.value = firstOperandValue / secondOperandValue;
+            firstOperand = firstOperandValue / secondOperandValue;
             break;
     }
+    operation = '';
+    operationDiv.innerHTML = '<br>';
+    secondOperand = '0';
+    showOperands();
 }
 
-
 function setOperation(event) {
-    operationDiv.innerText = event.key || event.target.innerText;
-    if (!(firstOperand.value)) {
-        firstOperand.value = secondOperand.value;
-        secondOperand.value = 0;
+    operation = event.key || event.target.innerText;
+    operationDiv.innerText = operation;
+    if (!(firstOperand)) {
+        firstOperand = secondOperand;
+        secondOperand = '0';
     }
+    showOperands();
 }
 
 function cancel() {
-    firstOperand.value = '';
-    secondOperand.value = 0;
+    firstOperand = '';
+    secondOperand = 0;
     operationDiv.innerHTML = '<br>';
+    operation = '';
+    showOperands();
 }
 
 function inputDigit(event) {
     const digit = event.key || event.target.innerText;
-    if (secondOperand.value == '0') {
-        secondOperand.value = digit;
+    if (secondOperand == '0') {
+        secondOperand = digit;
     } else {
-        secondOperand.value += digit;
+        secondOperand += digit;
     }
+    event.target.blur();
+    showOperands();
+}
+
+function showOperands() {
+    firstOperandEl.value = firstOperand;
+    secondOperandEl.value = secondOperand;
 }
 
 document.addEventListener('keydown', function (event) {
@@ -60,6 +74,7 @@ document.addEventListener('keydown', function (event) {
     if (key == 'Enter') {
         calculate();
     }
+
     if (key == 'Escape') {
         cancel();
     }
