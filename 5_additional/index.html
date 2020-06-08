@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div><input id="first-operand" readonly="readonly"></div>
+    <div id="operation"> <br> </div>
+    <div><input id="second-operand" readonly="readonly"></div>
+    <div>
+        <table>
+            <tr>
+                <td><button class="operation-button">+</button></td>
+                <td><button class="operation-button">-</button></td>
+                <td><button class="operation-button">*</button></td>
+                <td><button class="operation-button">/</button></td>
+                <td><button id="calculate-button">=</button></td>
+                <td><button id="cancel-button">C</button></td>
+            </tr>
+            <tr>
+                <td><button class="digit-button">7</button></td>
+                <td><button class="digit-button">8</button></td>
+                <td><button class="digit-button">9</button></td>
+            </tr>
+            <tr>
+                <td><button class="digit-button">4</button></td>
+                <td><button class="digit-button">5</button></td>
+                <td><button class="digit-button">6</button></td>
+            </tr>
+            <tr>
+                <td><button class="digit-button">1</button></td>
+                <td><button class="digit-button">2</button></td>
+                <td><button class="digit-button">3</button></td>
+            </tr>
+                <td></td>
+                <td><button class="digit-button">0</button></td>
+        </table>
+    </div>
+    <script src="calculator.js"></script>
+</body>
