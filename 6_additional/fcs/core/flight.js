@@ -48,16 +48,14 @@ function Flight(world, airliner, time, name) {
             exists = this._tickets.find(item => item.id === id);
         } while (exists);
 
-        const ticket = {
+        const ticket = new Ticket(
             id,
-            flight: this.name,
+            this.name,
             buyTime,
             fullName,
-            registrationTime: null,
             type,
             seat,
-        };
-
+        );
         this._tickets.push(ticket);
 
         return { ...ticket }; // копируем, что бы "пассажир" случайно ничего не изменил в самой информации о рейсе

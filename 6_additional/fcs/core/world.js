@@ -10,7 +10,7 @@ function World() {
     this.addFlight = (airliner, time, name) => (new Flight(this, airliner, time, name));
 
     this.buyTicket = function (flightName, buyTime, fullName, type = 0) {
-        flight = this.flights[flightName];
+        const flight = this.flights[flightName];
 
         if (!flight)
             throw new Error('Flight not found');
