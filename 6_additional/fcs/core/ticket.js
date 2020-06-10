@@ -1,6 +1,6 @@
 'use strict';
 /**
- * * @returns {Ticket} 
+ *  @returns {Ticket} 
  */
 
 function Ticket(id, flight, buyTime, fullName, type, seat) {
@@ -11,6 +11,9 @@ function Ticket(id, flight, buyTime, fullName, type, seat) {
     this.fullName = fullName;
     this.type = type;
     this.seat = seat;
+
+    this.eRegistration = function (nowTime) {
+        this.registrationTime = nowTime;
+        return true;
+    }
 }
-
-

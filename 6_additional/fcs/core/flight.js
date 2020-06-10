@@ -13,22 +13,32 @@ const CHARCODE_A = 'A'.charCodeAt(0);
  * @param {string?} name Имя рейса
  * @returns {Flight} Рейс
  */
-function Flight(world, airliner, time, name) {
-    while (name in world.flights) {
-        name = [
-            String.fromCharCode(CHARCODE_A + random(0, 26)),
-            String.fromCharCode(CHARCODE_A + random(0, 26)),
-            random(100, 999)
-        ].join('');
-    }
-
-    this.name = name;
+function Flight(airliner, time, name) {
     this.seats = airliner.seats;
     this.businessSeats = airliner.businessSeats;
     this.registrationStarts = time - 5 * 3600 * 1000;
     this.registrationEnds = time - 1 * 3600 * 1000;
+    this.name = name;
 
     this._tickets = [];
+
+    this.eRegistration = function (ticketNumber, fullName, nowTime) {
+        if (nowTime < this.registrationStarts)
+            throw new Error('Check-in has not started yet');
+
+        if (nowTime >= this.registartionEnds)
+            throw new Error('Check-in is over');
+
+        const ticket = this._tickets.find(ticket => ticket.id === ticketNumber);
+
+        if (!ticket)
+            throw new Error('Invalid ticket number');
+
+        if (ticket.fullName !== fullName)
+            throw new Error('Invalid passenger\'s name');
+
+        return ticket.eRegistration(nowTime);
+    }
 
     this.buyTicket = function (buyTime, fullName, type = 0) {
 
@@ -66,8 +76,6 @@ function Flight(world, airliner, time, name) {
         let seat;
         let seatsOfType = 0;
 
-        console.log(type);
-
         switch (type) {
             case 0: // standart
                 const availableSeats = [];
@@ -99,6 +107,27 @@ function Flight(world, airliner, time, name) {
                 throw new Error(`Unknown type`);
         }
     }
+    this.report = function (nowTime) {
 
-    world.flights[this.name] = this;
+        const registration = this.registrationStarts <= nowTime && nowTime <= this.registrationEnds;
+        const complete = nowTime > this.registrationEnds;
+        const countOfSeats = this.seats;
+        const reservedSeats = this._tickets.length;
+        const registeredSeats = this._tickets.filter(t => t.registrationTime !== null).length;
+        const countOfReverts = this._tickets.filter(ticket => (ticket.reverted)).length;
+        const countOfReservations = reservedSeats - countOfReverts;
+        const percentOfReverts = countOfReverts / reservedSeats * 100;
+
+        return {
+            flight: this.name,
+            registration,
+            complete,
+            countOfSeats,
+            reservedSeats,
+            registeredSeats,
+            countOfReverts,
+            countOfReservations,
+            percentOfReverts
+        };
+    }
 }
