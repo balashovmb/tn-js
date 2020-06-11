@@ -7,11 +7,27 @@
 * @returns {Ship} Корабль
  */
 function Ship(name, model, position, ships = world.ships) {
-    let _isAnchorDropped = false;
-    let _name = validName(name);
+    let _name;
 
-    this.model = model;
-    this.position = position;
+    this.setBaseProps = (name, model, position, ships = world.ships) => {
+        _name = validName(name);
+        this.model = model;
+        this.position = position;
+
+        function validName(name) {
+            if (Object.keys(ships).includes(name))
+                throw new Error(`Ship with name '${name}' already exists`);
+            return name;
+        }
+
+        ships[name] = this;
+    }
+
+    this.setBaseProps(name, model, position, ships = world.ships);
+
+    let _isAnchorDropped = false;
+
+
     this.distance = 0;
     this.speed = 0;
 
@@ -68,7 +84,7 @@ function Ship(name, model, position, ships = world.ships) {
      * @param {boolean} dropped
      */
     this.dropAnchor = () => {
-        console.log(_isAnchorDropped;
+        console.log(_isAnchorDropped);
         _isAnchorDropped = true;
     };
 
@@ -77,11 +93,5 @@ function Ship(name, model, position, ships = world.ships) {
         return true;
     };
 
-    function validName(name) {
-        if (Object.keys(ships).includes(name))
-            throw new Error(`Ship with name '${name}' already exists`);
-        return name;
-    }
 
-    ships[name] = this;
 }
