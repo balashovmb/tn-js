@@ -93,5 +93,9 @@ function Ship(name, model, position, ships = world.ships) {
         return true;
     };
 
+    this.typeOfShip = function(){
+        return this._typeOfShip;
+    }
+
 
 }
