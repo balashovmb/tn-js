@@ -21,7 +21,11 @@ function Shipyard(position) {
         console.log('Ship is repaired');
     }
 
-
+    this.produceShip = function (specification) {
+        this.checkTypeOfShip(specification.typeOfShip);
+        const ship = this._produceShip(specification);
+        this.moor(ship);
+    }
 }
 
 Shipyard.prototype = new Dock();
