@@ -10,16 +10,18 @@ function Shipyard(position) {
         ship.color = color;
     }
 
-    this.checkTypeOfShip = function (ship) {
-        if (this._supportedShips !== ship.typeOfShip())
+    this.checkTypeOfShip = function (typeOfShip) {
+        if (this._supportedShips !== typeOfShip)
             throw new Error('This operation is not supported for ships of this type');
     }
 
     this.repairShip = function (ship) {
         this.isShipOnShipyard(ship);
-        this.checkTypeOfShip(ship);
+        this.checkTypeOfShip(ship.typeOfShip());
         console.log('Ship is repaired');
     }
+
+
 }
 
 Shipyard.prototype = new Dock();

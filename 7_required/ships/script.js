@@ -27,3 +27,4 @@ const sailboatShipyard = new SailboatShipyard({ x: 12, y: 12 });
 sailboat.moveTo({ x: 12, y: 12 });
 sailboatShipyard.moor(sailboat);
 sailboatShipyard.repairShip(sailboat);
+motorShipyard.produceShip('Motor ship', 'Trout', 'MB2', 105 , 'steel', ships = world.ships);
