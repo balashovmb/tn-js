@@ -8,8 +8,10 @@
 function Dock(position) {
     this._ships = [];
     this.position = position;
+}
 
-    this.moor = function (ship) {
+Dock.prototype = {
+    moor: function (ship) {
         if (ship.position.x != this.position.x || ship.position.y != this.position.y) {
             throw new Error('Ship should be near the dock.')
         }
@@ -19,13 +21,13 @@ function Dock(position) {
         ship.dropAnchor();
         this._ships.push(ship);
         console.log(`Ship ${ship.name()} is docked.`);
-    }
+    },
 
-    this.ships = function () {
+    ships: function () {
         return this._ships;
-    }
+    },
 
-    this.unMoor = function (ship) {
+    unMoor: function (ship) {
         if (!this._ships.includes(ship)) {
             throw new Error('Ship is not in dock.');
         }

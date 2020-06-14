@@ -1,7 +1,12 @@
-function SailboatShipyard(position){
+function SailboatShipyard(position) {
+    Shipyard.call(this);
     this.position = position;
     this._supportedShips = 'Sailboat';
-    this._produceShip = function(specification){
+}
+
+SailboatShipyard.prototype = {
+    ...Shipyard.prototype,
+    _produceShip: function (specification) {
         return new MotorShip(
             specification.name,
             specification.model,
@@ -11,6 +16,5 @@ function SailboatShipyard(position){
             specification.ships = world.ships
         )
     }
-}
-
-SailboatShipyard.prototype = new Shipyard();
+};
+SailboatShipyard.prototype.constructor = Shipyard;

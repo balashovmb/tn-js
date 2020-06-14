@@ -7,10 +7,20 @@
 * @returns {Ship} Корабль
  */
 function Ship(name, model, position, ships = world.ships) {
-    let _name;
 
-    this.setBaseProps = (name, model, position, ships = world.ships) => {
-        _name = validName(name);
+    this.setBaseProps(name, model, position, ships);
+
+    this._isAnchorDropped = false;
+
+    this.distance = 0;
+
+    this.speed = 0;
+
+}
+
+Ship.prototype = {
+    setBaseProps: function (name, model, position, ships) {
+        this._name = validName(name);
         this.model = model;
         this.position = position;
 
@@ -19,23 +29,9 @@ function Ship(name, model, position, ships = world.ships) {
                 throw new Error(`Ship with name '${name}' already exists`);
             return name;
         }
-
         ships[name] = this;
-    }
-
-    this.setBaseProps(name, model, position, ships = world.ships);
-
-    let _isAnchorDropped = false;
-
-
-    this.distance = 0;
-    this.speed = 0;
-
-    this.name = function () {
-        return _name;
-    }
-
-    this.move = function (direction) {
+    },
+    move: function (direction) {
         this.checkAnchor();
 
         switch (direction) {
@@ -54,9 +50,8 @@ function Ship(name, model, position, ships = world.ships) {
         }
         this.distance += 1;
         return true;
-    }
-
-    this.moveTo = function (position) {
+    },
+    moveTo: function (position) {
         this.checkAnchor();
 
         this.distance += Math.sqrt(
@@ -68,34 +63,31 @@ function Ship(name, model, position, ships = world.ships) {
             y: position.y,
         }
         return true;
-    };
-
-    this.checkAnchor = function () {
+    },
+    name: function () {
+        return this._name;
+    },
+    isAnchorDropped: function () {
+        return this._isAnchorDropped;
+    },
+    checkAnchor: function () {
         if (this.isAnchorDropped())
             throw new Error('You need to rise anchor');
-    }
-
-    this.isAnchorDropped = function () {
-        console.log('isAnchorDropped', this);
-        return _isAnchorDropped;
-    };
+    },
 
     /**
      * @param {boolean} dropped
      */
-    this.dropAnchor = () => {
-        console.log(_isAnchorDropped);
-        _isAnchorDropped = true;
-    };
+    dropAnchor: () => {
+        this._isAnchorDropped = true;
+    },
 
-    this.riseAnchor = () => {
-        _isAnchorDropped = false;
+    riseAnchor: () => {
+        this._isAnchorDropped = false;
         return true;
-    };
+    },
 
-    this.typeOfShip = function(){
+    typeOfShip: function () {
         return this._typeOfShip;
     }
-
-
 }
