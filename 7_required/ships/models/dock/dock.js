@@ -16,7 +16,7 @@ Dock.prototype = {
             throw new Error('Ship should be near the dock.')
         }
         if (this._ships.includes(ship)) {
-            throw new Error('Ship is already docked');
+            throw new Error('Ship is already docked.');
         }
         ship.dropAnchor();
         this._ships.push(ship);

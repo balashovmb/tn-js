@@ -7,13 +7,13 @@ function SailboatShipyard(position) {
 SailboatShipyard.prototype = {
     ...Shipyard.prototype,
     _produceShip: function (specification) {
-        return new MotorShip(
+        return new Sailboat(
             specification.name,
             specification.model,
             this.position,
             specification.numberOfMasts,
             specification.areaOfSails,
-            specification.ships = world.ships
+            specification.ships
         )
     }
 };

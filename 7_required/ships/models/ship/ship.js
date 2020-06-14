@@ -71,18 +71,18 @@ Ship.prototype = {
         return this._isAnchorDropped;
     },
     checkAnchor: function () {
-        if (this.isAnchorDropped())
+        if (this._isAnchorDropped)
             throw new Error('You need to rise anchor');
     },
 
     /**
      * @param {boolean} dropped
      */
-    dropAnchor: () => {
+    dropAnchor: function () {
         this._isAnchorDropped = true;
     },
 
-    riseAnchor: () => {
+    riseAnchor: function () {
         this._isAnchorDropped = false;
         return true;
     },

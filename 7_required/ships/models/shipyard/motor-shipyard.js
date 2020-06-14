@@ -13,7 +13,7 @@ MotorShipyard.prototype = {
             this.position,
             specification.power,
             specification.material,
-            specification.ships = world.ships
+            specification.ships
         )
     }
 };

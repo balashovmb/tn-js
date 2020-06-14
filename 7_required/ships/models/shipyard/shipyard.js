@@ -8,22 +8,24 @@ Shipyard.prototype = {
     isShipOnShipyard: function (ship) {
         if (!this._ships.includes(ship))
             throw new Error('Ship must be at the shipyard');
+        return true;
     },
 
     paintShip: function (ship, color) {
         this.isShipOnShipyard(ship);
-        ship.color = color;
+        ship._color = color;
     },
 
     checkTypeOfShip: function (typeOfShip) {
         if (this._supportedShips !== typeOfShip)
             throw new Error('This operation is not supported for ships of this type');
+        return true;
     },
 
     repairShip: function (ship) {
         this.isShipOnShipyard(ship);
         this.checkTypeOfShip(ship.typeOfShip());
-        console.log('Ship is repaired');
+        return 'Ship is repaired';
     },
 
     produceShip: function (specification) {
