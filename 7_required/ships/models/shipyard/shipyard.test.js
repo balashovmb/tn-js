@@ -41,6 +41,31 @@ describe('Shipyard', () => {
             expect(shipyard.repairShip(ship)).to.eq('Ship is repaired');
         });
     });
+    describe('produceShip', () => {
+        it('returns Ship', () => {
+            shipyard._supportedShips = 'Base ship';
+            const ship2 = new Ship('Shark', 'Yacht', { x: 1, y: 1 }, {});
+            const specification = {
+                typeOfShip: 'Base ship',
+            }
+            shipyard._produceShip = function() { return ship2 };
+            const result = shipyard.produceShip(specification);
+            expect(result).to.be.deep.eq(ship2);
+        })
+    });
+    describe('changeShip', () => {
+        it('returns Ship', () => {
+            shipyard._supportedShips = 'Base ship';
+            const ship2 = new Ship('Shark', 'Yacht', { x: 1, y: 1 }, {});
+            ship.typeOfShip = 'Base ship';
+            const specification = {
+                typeOfShip: 'Base ship',
+            }
+            shipyard._produceShip = function() { return ship2 };
+            const result = shipyard.changeShip(ship, specification);
+            expect(result).to.be.deep.eq(ship2);
+        })
+    });
 })
 describe('SailboatShipyard', () => {
     let sailboatShipyard;

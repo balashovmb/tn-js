@@ -1,3 +1,6 @@
+/**
+* @param {{х: number, y: number}} position Координаты
+*/
 function SailboatShipyard(position) {
     Shipyard.call(this);
     this.position = position;

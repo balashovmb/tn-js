@@ -3,7 +3,8 @@
 /**
 * @param {string} name Имя корабля
 * @param {string} model Модель корабля
-* @param {{х: number, y: number}} position Координаты коробля
+* @param {{х: number, y: number}} position Координаты корабля
+* @param {Object} ships Именованный массив, содержащий все корабли
 * @returns {Ship} Корабль
  */
 function Ship(name, model, position, ships = world.ships) {
@@ -26,7 +27,7 @@ Ship.prototype = {
 
         function validName(name) {
             if (Object.keys(ships).includes(name))
-                throw new Error(`Ship with name '${name}' already exists`);
+                throw new Error(`Ship with name "${name}" already exists`);
             return name;
         }
         ships[name] = this;

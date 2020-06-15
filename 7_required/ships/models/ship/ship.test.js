@@ -4,6 +4,16 @@ describe('Ship', () => {
     beforeEach(function () {
         ship = new Ship('Best ship', 'Yacht', { x: 1, y: 1 }, {});
     });
+
+    describe('on create', () => {
+        it('throws error when ships name is not uniq', () => {
+            const testWorld = { ships: { 'Best ship': ship } };
+            expect(
+                () => new Ship('Best ship', 'Yacht', { x: 1, y: 1 }, testWorld.ships)
+            ).to.throw(Error, 'Ship with name "Best ship" already exists');
+        });
+    });
+
     describe('move', () => {
         it('increases distance', () => {
             ship.move('w');
@@ -53,7 +63,7 @@ describe('Ship', () => {
     describe('checkAnchor', () => {
         it('throws error when anchor isn dropped', () => {
             ship.dropAnchor();
-            expect(() => ship.checkAnchor()).to.throw(Error,'You need to rise anchor');
+            expect(() => ship.checkAnchor()).to.throw(Error, 'You need to rise anchor');
         });
         it('doesn\'t throw error when anchor isn\'t dropped', () => {
             expect(() => ship.checkAnchor()).not.to.throw();
