@@ -81,15 +81,21 @@ class HtmlElement {
     }
 
     elementResultHtml() {
-        const regexp = /{{\w*}}/g;
+        // const regexp = /{{\w*}}/g;
+        // let resultString = this.template;
+        // let matches = resultString.matchAll(regexp);
+        // matches = Array.from(matches);
+        // matches.forEach(match => {
+        //     match = match[0];
+        //     const currentVar = match.substr(2, (match.length - 4));
+        //     resultString = resultString.replace(match, this.variables[currentVar]);
+        // })
         let resultString = this.template;
-        let matches = resultString.matchAll(regexp);
-        matches = Array.from(matches);
-        matches.forEach(match => {
-            match = match[0];
-            const currentVar = match.substr(2, (match.length - 4));
-            resultString = resultString.replace(match, this.variables[currentVar]);
-        })
+        const variables = this._variables;
+        if (!variables) { return resultString };
+        Object.keys(variables).map(
+            curVar => resultString = resultString.replace(`{{${curVar}}}`, variables[curVar])
+        );
         return resultString;
     }
 }

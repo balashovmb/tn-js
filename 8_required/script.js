@@ -6,3 +6,10 @@ el.elementResultHtml();
 el.styles = {color: 'red'};
 
 el.render();
+
+div = new Div();
+
+div.template = `<div>1234</div> `;
+div.target = document.getElementById('target');
+div.render();
+div.onClick = () => (console.log('!')) 
