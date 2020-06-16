@@ -42,8 +42,14 @@ class HtmlElement {
     }
 
     _render() {
-        this.target.innerHTML = this.elementResultHtml();
-        this.applyStyles();
+        const htmlString = this.elementResultHtml();
+
+        const html = new DOMParser().parseFromString(htmlString, 'text/html').body.childNodes[0]
+
+        html.style.cssText = this.stylesToString();
+
+        this.target.append(html);
+        // this.applyStyles();
     }
 
     _unrender() {
@@ -88,15 +94,13 @@ class HtmlElement {
     }
 }
 
-class Div extends HtmlElement{
+class Div extends HtmlElement {
     constructor() {
         super();
     }
-    
-    set onClick(func){
+
+    set onClick(func) {
         this._onClick = func;
         addEventListener('click', this._onClick);
     }
 }
-//        const newSentence = sentence.replace(wordA, wordB);
-//strr.substr(2, (strr.length - 4)) 
