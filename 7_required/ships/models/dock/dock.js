@@ -19,7 +19,7 @@ Dock.prototype = {
             throw new Error('Ship is already docked.');
         }
         ship.dropAnchor();
-        this._ships.push(ship);
+        this._ships = [...this._ships, ship];
         console.log(`Ship ${ship.name()} is docked.`);
     },
 
@@ -32,7 +32,7 @@ Dock.prototype = {
             throw new Error('Ship is not in dock.');
         }
         ship.riseAnchor();
-        this._ships.pop(ship);
+        this._ships = this._ships.filter(curShip => curShip !== ship);
         console.log(`Ship ${ship.name()} left the dock.`);
     }
 }
