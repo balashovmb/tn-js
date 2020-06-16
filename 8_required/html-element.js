@@ -1,59 +1,47 @@
 class HtmlElement {
-    constructor() {
-
-    }
     set target(target) {
         if (!(target instanceof Element)) {
-            throw new TypeError('Target must be a DOM element');
+            throw new TypeError('Target should be a DOM element');
         }
         this._target = target;
     }
 
-    get target() {
-        return this._target;
-    }
-
     set template(template) {
+        if(typeof(template) !== 'string')
+            throw new TypeError('Styles should be a string.')
         this._template = template;
-    }
-
-    get template() {
-        return this._template;
+        this.updateElement()
     }
 
     set styles(val) {
         if (typeof (val) !== 'object' || val === null) {
-            throw new TypeError('Styles must be an object.')
+            throw new TypeError('Styles should be an object.')
         };
         this._styles = val;
-        this.applyStyles();
-    }
-
-    get styles() {
-        return this._styles;
+        if (this._element) { this.applyStyles(); }
     }
 
     set variables(val) {
+        if (typeof (val) !== 'object' || val === null) {
+            throw new TypeError('Variables should be an object.')
+        };
         this._variables = val;
     }
 
-    get variables() {
-        return this._variables;
+    updateElement() {
+        const htmlString = this.elementResultHtml();
+        this._element = new DOMParser().parseFromString(htmlString, 'text/html').body.childNodes[0]
+
     }
 
     _render() {
-        const htmlString = this.elementResultHtml();
-
-        const html = new DOMParser().parseFromString(htmlString, 'text/html').body.childNodes[0]
-
-        html.style.cssText = this.stylesToString();
-
-        this.target.append(html);
-        // this.applyStyles();
+        this.updateElement();
+        this._target.append(this._element);
+        this.applyStyles();
     }
 
     _unrender() {
-        this.target.innerHTML = '';
+        this._element.remove();
     }
 
     render() {
@@ -65,12 +53,12 @@ class HtmlElement {
     }
 
     applyStyles() {
-        this.target.style.cssText = this.stylesToString();
+        this._element.style.cssText = this.stylesToString();
     }
 
     stylesToString() {
         let stylesString = '';
-        const styles = this.styles;
+        const styles = this._styles;
         if (!styles) {
             return '';
         }
@@ -81,16 +69,7 @@ class HtmlElement {
     }
 
     elementResultHtml() {
-        // const regexp = /{{\w*}}/g;
-        // let resultString = this.template;
-        // let matches = resultString.matchAll(regexp);
-        // matches = Array.from(matches);
-        // matches.forEach(match => {
-        //     match = match[0];
-        //     const currentVar = match.substr(2, (match.length - 4));
-        //     resultString = resultString.replace(match, this.variables[currentVar]);
-        // })
-        let resultString = this.template;
+        let resultString = this._template;
         const variables = this._variables;
         if (!variables) { return resultString };
         Object.keys(variables).map(
@@ -101,10 +80,6 @@ class HtmlElement {
 }
 
 class Div extends HtmlElement {
-    constructor() {
-        super();
-    }
-
     set onClick(func) {
         this._onClick = func;
         addEventListener('click', this._onClick);
