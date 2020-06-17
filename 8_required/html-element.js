@@ -7,10 +7,10 @@ class HtmlElement {
     }
 
     set template(template) {
-        if(typeof(template) !== 'string')
+        if (typeof (template) !== 'string')
             throw new TypeError('Styles should be a string.')
         this._template = template;
-        this.updateElement()
+        this.updateElement();
     }
 
     set styles(val) {
@@ -26,18 +26,17 @@ class HtmlElement {
             throw new TypeError('Variables should be an object.')
         };
         this._variables = val;
+        if (this._template) { this.updateElement(); }
     }
 
     updateElement() {
-        const htmlString = this.elementResultHtml();
+        const htmlString = this.elementHtmlString();
         this._element = new DOMParser().parseFromString(htmlString, 'text/html').body.childNodes[0]
-
     }
 
     _render() {
-        this.updateElement();
-        this._target.append(this._element);
         this.applyStyles();
+        this._target.append(this._element);
     }
 
     _unrender() {
@@ -68,7 +67,7 @@ class HtmlElement {
         return stylesString;
     }
 
-    elementResultHtml() {
+    elementHtmlString() {
         let resultString = this._template;
         const variables = this._variables;
         if (!variables) { return resultString };
@@ -82,6 +81,17 @@ class HtmlElement {
 class Div extends HtmlElement {
     set onClick(func) {
         this._onClick = func;
-        addEventListener('click', this._onClick);
+        this._element.addEventListener('click', this._onClick);
+    }
+}
+
+class Input extends HtmlElement {
+    set onInput(func) {
+        this._onInput = func;
+        this._element.addEventListener('input', this._onInput);
+    }
+    set onFocus(func) {
+        this._onFocus = func;
+        this._element.addEventListener('focus', this._onFocus);
     }
 }
