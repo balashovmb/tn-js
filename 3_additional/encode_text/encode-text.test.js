@@ -4,9 +4,25 @@ describe('encodeText', () => {
         { text: 'один два три один один', countFirst: 3 },
         { text: 'слово', countFirst: 1 }
     ]
+    const decodeText = function (encodedObj) {
+        const textArr = encodedObj.encodedText.split(',');
+        const dictionary = encodedObj.dictionary;
+        const result = textArr.map(el => {
+            const wordObj = dictionary.find(currentWordObj => {
+                if (currentWordObj.code === el) {
+                    return currentWordObj;
+                }
+            })
+            return wordObj.word;
+        })
+        return result.join(' ');
+    }
     phrases.forEach(phrase => {
         describe(phrase.text, () => {
             const result = encodeText(phrase.text)
+            it('encodes text', () => {
+                expect(decodeText(result)).to.eq(phrase.text);
+            });
             it('returns obj with keys dictionary, encodedText', () => {
                 expect(result).to.have.property('dictionary');
                 expect(result).to.have.property('encodedText');

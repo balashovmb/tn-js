@@ -2,7 +2,7 @@ function mapOnReduce(arr, callback) {
     if (!Array.isArray(arr)) {
         throw new TypeError('First arg is not an array');
     }
-    if (typeof (callback) != 'function') {
+    if (typeof callback != 'function') {
         throw new TypeError('Second arg is not a function');
     }
     return arr.reduce((accum, current) => {
@@ -15,7 +15,7 @@ function filterOnReduce(arr, callback) {
     if (!Array.isArray(arr)) {
         throw new TypeError('First arg is not an array');
     }
-    if (typeof (callback) != 'function') {
+    if (typeof callback != 'function') {
         throw new TypeError('Second arg is not a function');
     }
     return arr.reduce((accum, current) => {
