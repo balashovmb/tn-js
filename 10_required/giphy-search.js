@@ -1,8 +1,9 @@
 
 const URL = 'https://api.giphy.com/v1/gifs/search';
+const API_KEY = "pjxDakDHEhvolGGtK4DdAGOU0KvCtERA";
 let globalres;
-function search(url) {
-    const API_KEY = "pjxDakDHEhvolGGtK4DdAGOU0KvCtERA"
+function search(url, api_key) {
+
     const queryForm = document.getElementById('search-form');
     let searchTimeout;
     let cache = {};
@@ -10,10 +11,12 @@ function search(url) {
 
     const getGifs = query => {
         if (Object.keys(cache).includes(query)) {
+            console.info('from cache');
             return cache[query];
         }
-        return fetch(`${URL}?q=${query}&api_key=${API_KEY}`).then(result => {
+        return fetch(`${url}?q=${query}&api_key=${api_key}`).then(result => {
             if (result.ok) {
+                console.info('from net');
                 const resultJSON = result.json();
                 cache[query] = resultJSON;
                 return resultJSON;
@@ -28,13 +31,20 @@ function search(url) {
             const result = await getGifs(query);
             console.log(result);
             globalres = result;
+            renderGifs(result);
         } catch (e) {
             console.error('Something happend:', e);
         }
     };
 
-    const renderGifs = function (data) {
-
+    const renderGifs = function (result) {
+        gifsRoot.innerHTML = '';
+        Array.from(result.data).forEach(el => {
+            const url = el.images.fixed_height.url;
+            const div = document.createElement('div');
+            div.innerHTML = `<img src=${url}/>`;
+            gifsRoot.append(div);
+        })
     }
 
     queryForm.addEventListener('input', function (event) {
@@ -43,4 +53,4 @@ function search(url) {
         searchTimeout = (setTimeout(() => showResult(query), 1000));
     })
 }
-search(URL);
+search(url, api_key);
