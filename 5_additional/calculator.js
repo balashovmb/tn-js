@@ -37,7 +37,7 @@ function calculate() {
 function setOperation(event) {
     operation = event.key || event.target.innerText;
     operationDiv.innerText = operation;
-    if (!(firstOperand)) {
+    if (!firstOperand) {
         firstOperand = secondOperand;
         secondOperand = '0';
     }
