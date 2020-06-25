@@ -9,7 +9,10 @@ class User {
     this._channels = new Set();
   }
 
-  loginChannel(channelName) {}
+  loginChannel(channelName) {
+    this._channels.add(channelName);
+    this.connection.send('You are connected to the channel ' + channelName);
+  }
 
   logoutChannel(channelName) {}
 
@@ -25,6 +28,9 @@ wsConnection.on("connection", ws => {
 
     switch (message.command) {
       case "login":
+        user.loginChannel(message.channel);
+        // channel: 'channelName',
+        // username: 'username'
         return;
       case "logout":
         return;
@@ -33,7 +39,7 @@ wsConnection.on("connection", ws => {
       case "exitChat":
         return;
       default:
-        ws.send("Unknown command");
+        ws.send("Unknown command ");
         return;
     }
   });
