@@ -4,11 +4,10 @@ const API_KEY = "pjxDakDHEhvolGGtK4DdAGOU0KvCtERA";
 function giphySearch(url, api_key) {
     const queryForm = document.getElementById('search-form');
     const gifsRoot = document.getElementById('gifs-root');
-    let searchTimeout;
     let cache = {};
 
     const getGifs = query => {
-        if (Object.keys(cache).includes(query)) {
+        if (cache[query]) {
             return cache[query];
         }
         return fetch(`${url}?q=${query}&api_key=${api_key}`).then(result => {
@@ -44,11 +43,22 @@ function giphySearch(url, api_key) {
         });
     };
 
-    queryForm.addEventListener('input', function (event) {
-        clearTimeout(searchTimeout);
+    const throttle = function (func, delay) {
+        let timeout = null;
+        return function (...args) {
+            if (!timeout) {
+                timeout = setTimeout(() => {
+                    func.call(this, ...args);
+                    timeout = null;
+                }, delay);
+            }
+        }
+    }
+
+    queryForm.addEventListener('input', throttle(function (event) {
         const query = event.target.value;
-        searchTimeout = (setTimeout(() => showResult(query), 500));
-    });
+        showResult(query);
+    }, 500));
 }
 
 giphySearch(URL, API_KEY);
