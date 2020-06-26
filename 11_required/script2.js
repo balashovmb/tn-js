@@ -5,6 +5,6 @@ const login = {
 }
 
 
-setTimeout(function tests(){
+setTimeout(function sendMsgs(){
     socket.send(JSON.stringify(login));
 },500);

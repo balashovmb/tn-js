@@ -6,18 +6,16 @@ const clients = new Set();
 const channels = {};
 
 function prepareServiceMessage(text) {
-    const servMesage = {
+    return {
         service: true,
         text: text
     }
-    return servMesage;
 }
 
 class User {
     constructor(connection) {
         this.connection = connection;
         this._channels = new Set();
-        // this.username = 'Anonymous';
     }
 
     loginChannel(channelName, username) {
@@ -47,11 +45,6 @@ class User {
         return this._channels.has(channelName);
     }
 
-    // setUsername(username) {
-    //     this.username = username;
-    //     this.serviceMessage('You are changed name to ' + username);
-    // }
-
     sendMessage(channelName, text) {
         if (!this.isLoggedIn(channelName)) {
             this.serviceMessage('You are not connected to this channel');
@@ -65,7 +58,7 @@ class User {
         this.connection.send(JSON.stringify(message));
     }
 
-    exitChat(){
+    exitChat() {
         this.connection.close();
     }
 
@@ -114,32 +107,21 @@ class Channel {
 wsConnection.on("connection", ws => {
     const user = new User(ws);
     clients.add(user);
-
     user.connection.on("message", function (data) {
         const message = JSON.parse(data);
-
         switch (message.command) {
             case "login":
                 user.loginChannel(message.channel, message.username);
-                // channel: 'channelName',
-                // username: 'username'
                 return;
             case "logout":
                 user.logoutChannel(message.channel);
-                // command: 'logout',
-                // channel: 'channelName',
                 return;
             case "sendMessage":
-                // command: 'sendMessage',
-                // channel: 'channelName',
                 user.sendMessage(message.channel, message.text);
                 return;
             case "exitChat":
                 user.exitChat();
                 return;
-            // case "setUsername":
-            //     user.setUsername(message.username);
-            //     return;
             default:
                 ws.send("Unknown command ");
                 return;
@@ -149,5 +131,4 @@ wsConnection.on("connection", ws => {
     user.connection.on("close", function () {
         clients.delete(user);
     });
-
 });
