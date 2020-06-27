@@ -3,12 +3,7 @@
 /**
  * @type {World} Список всех рейсов
  */
-const world = {
-    flights: {},
-    history: [],
-};
 
-window['world'] = world;
 
 /**
  * @typedef {Object} World
