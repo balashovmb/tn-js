@@ -20,3 +20,10 @@ thenAndCatch(prom2);
 thenAndCatch(prom3);
 thenAndCatch(prom4);
 
+const prom5 = prom4.then( res => res -1 ).then(res => res + 5);
+prom6 = prom4.then( res => res * 100);
+prom7 = prom4.then();
+console.log(prom5)
+console.log(prom6);
+thenAndCatch(prom6)
+console.log(prom7);
