@@ -12,7 +12,15 @@ const CHARCODE_A = 'A'.charCodeAt(0);
  * @param {number} time Время вылета
  * @param {string?} name Имя рейса
  * @returns {Flight} Рейс
+ * @typedef {Object} Flight
+ * @property {string} name Номер рейса
+ * @property {number} seats Общее количество мест (включая бизнес класс)
+ * @property {number} businessSeats Количество мест бизнес класса (первые номера мест в нумерации)
+ * @property {number} registrationStarts Время начала регистрации на борт
+ * @property {number} registrationEnds Время окончания регистрации на борт
+ * @property {Ticket[]} tickets Массив всех билетов
  */
+
 function Flight(airliner, time, name) {
     this.seats = airliner.seats;
     this.businessSeats = airliner.businessSeats;

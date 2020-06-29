@@ -15,7 +15,7 @@ function Lesson(date, group) {
     }
     let _presentStudents = this.group.students().filter(student => !student.isIll());
 
-    this.presentStudents = () => (_presentStudents);
+    this.presentStudents = () => _presentStudents;
 
     this.presentStudentsCount = _absentStudents.length;
 }

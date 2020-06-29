@@ -1,6 +1,13 @@
 'use strict';
 /**
- *  @returns {Ticket} 
+ * @typedef {Object} Ticket
+ * @property {string} id
+ * @property {string} flight
+ * @property {string} fullName
+ * @property {number} type Тип места (0 - стандарт, 1 - бизнес)
+ * @property {number} seat
+ * @property {number} buyTime
+ * @property {number} registrationTime Время прохождения электроннйо регистрации
  */
 
 function Ticket(id, flight, buyTime, fullName, type, seat) {
