@@ -16,17 +16,29 @@ class CustomPromise {
         return this._state;
     }
 
-    get value(){
+    get value() {
         return this.state;
     }
 
     then(successCb, rejectCb) {
-        if (this._state === 'fulfilled' && successCb) {
-            successCb(this._value);
+        const newPromise = new CustomPromise();
+        newPromise._state = this._state;
+
+        if (this._state === 'fulfilled') {
+            if (successCb) {
+                newPromise._value = successCb(this._value);
+            } else {
+                newPromise._value = this._value;
+            }
         }
-        if (this._state === 'rejected' && rejectCb) {
-            rejectCb(this._value);
-        }
+
+        if (this._state === 'rejected')
+            if (rejectCb) {
+                newPromise._value = rejectCb(this._value);
+            } else {
+                newPromise._value = this._value;
+            }
+
         if (this._state === 'pending') {
             if (successCb) {
                 this.__success__.push(successCb);
@@ -35,6 +47,8 @@ class CustomPromise {
                 this.__error__.push(rejectCb);
             }
         }
+
+        return newPromise;
     }
 
     catch(rejectCb) {
